@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     getAllBookmarks();
-    fetch("http://localhost:5000/folder/getAll")
+    fetch("https://chrome-extention-backend.onrender.com/folder/getAll")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -26,7 +26,7 @@ function App() {
 
   const getAllBookmarks = () => {
     console.log("getting all");
-    fetch("http://localhost:5000/bookmark/getAll")
+    fetch("https://chrome-extention-backend.onrender.com/bookmark/getAll")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
