@@ -17,7 +17,7 @@ function App() {
     }
     getAllBookmarks();
     // fetch("https://chrome-extention-backend.onrender.com/folder/getAll")
-    fetch("http://localhost:5000/folder/getAll", {
+    fetch("https://chrome-extention-backend.onrender.com/folder/getAll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function App() {
     console.log("getting all");
     setHeaderName("All Bookmarks");
     // fetch("https://chrome-extention-backend.onrender.com/bookmark/getAll")
-    fetch("http://localhost:5000/bookmark/getAll", {
+    fetch("https://chrome-extention-backend.onrender.com/bookmark/getAll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,8 @@ function App() {
 
   const folderClick = (name) => {
     console.log("folder", name);
-    fetch(`http://localhost:5000/bookmark/getbyfolder`, {
+    setHeaderName(name)
+    fetch(`https://chrome-extention-backend.onrender.com/bookmark/getbyfolder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +98,7 @@ function App() {
     if (collectionName) {
       console.log("Collection name:", collectionName);
 
-      fetch("http://localhost:5000/folder/create", {
+      fetch("https://chrome-extention-backend.onrender.com/folder/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,6 +125,47 @@ function App() {
     }
   };
 
+  const deleteFolder = (id) => {
+    console.log("delete", id);
+
+    fetch(`https://chrome-extention-backend.onrender.com/folder/delete/${id}`, {
+        method: 'get'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to delete folder");
+        }
+        console.log("Folder deleted successfully");
+        alert("deleted")
+        setGetFolder(!getfolder)
+    })
+    .catch(error => {
+        console.error("Error deleting folder:", error);
+        alert("failed")
+    });
+};
+
+const deleteBook = (id)=>{
+  console.log("delete", id);
+
+  fetch(`https://chrome-extention-backend.onrender.com/bookmark/delete/${id}`, {
+      method: 'get'
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error("Failed to delete bookmark");
+      }
+      console.log("bookmark deleted successfully");
+      alert("deleted")
+      setGetFolder(!getfolder)
+  })
+  .catch(error => {
+      console.error("Error deleting bookmark:", error);
+      alert("failed")
+  });
+}
+
+
   return (
     <div>
       {login ? (
@@ -134,18 +176,20 @@ function App() {
             <div className="allBookmarkTab" onClick={getAllBookmarks}>
               All Bookmarks
             </div>
-            <div style={{ padding: "20px",background:"bisque", borderRadius:"20px",margin:"10px", cursor:"pointer"}} onClick={addNewCollection}>
+            <div style={{ padding: "20px", background: "bisque", borderRadius: "20px", margin: "10px", cursor: "pointer" }} onClick={addNewCollection}>
               Add new Collections
             </div>
 
             {folder?.map((fol) => (
-              <div key={fol._id} onClick={() => folderClick(fol.name)}>
+              <div key={fol._id}  style={{display:"flex", flexDirection:"row", alignItems:"center",justifyContent:"space-between"}}>
                 <div
-                  onClick={() => setHeaderName(fol.name)}
+                  // onClick={() => setHeaderName(fol.name)}
+                  onClick={() => folderClick(fol.name)}
                   style={{ padding: "20px", cursor: "pointer" }}
                 >
                   {fol.name}
                 </div>
+                <div style={{ color: "white", background: "red", borderRadius: "5px" }} onClick={() => deleteFolder(fol._id)}> Delete</div>
               </div>
             ))}
           </div>
@@ -172,6 +216,7 @@ function App() {
                     <p className="tabs">{bookmark.folder}</p>
                   </div>
                 </div>
+                <div style={{background:"red", color:'white',padding:"5px", borderRadius:"5px"}} onClick={()=>deleteBook(bookmark._id)} >Delete</div>
               </div>
             ))}
           </div>

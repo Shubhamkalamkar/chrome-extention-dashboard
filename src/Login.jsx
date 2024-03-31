@@ -12,7 +12,7 @@ export const Login = () => {
     console.log("Password:", password);
 
     if (login) {
-      fetch("http://localhost:5000/auth/login", {
+      fetch("https://chrome-extention-backend.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const Login = () => {
           alert("failed");
         });
     } else {
-      fetch("http://localhost:5000/user/create", {
+      fetch("https://chrome-extention-backend.onrender.com/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
