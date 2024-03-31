@@ -1,25 +1,42 @@
-.App{
-display: flex;
-flex-direction: row;
+.App {
+  display: flex;
+  flex-direction: row;
 }
 
-.drawer{
+.drawer {
   flex: 1;
-  background-color: rebeccapurple;
 }
-.content{
+.tabs {
+  background-color: antiquewhite;
+  padding: 5px;
+  border-radius: 5px;
+}
+.content {
   flex: 4;
-  background-color: green;
+  /* background-color: green; */
 }
 
-.tabIcon{
+.allBookmarkTab {
+  /* background-color: wheat; */
+  /* margin: 20px; */
+  padding: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.tabIcon {
   width: 45px;
   height: 45px;
   margin: 10px;
 }
-.bookmarkContainer{
+.bookmarkContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  border: 0.1px solid black;
+  margin: 5px;
+  border-radius: 10px;
 }
+
